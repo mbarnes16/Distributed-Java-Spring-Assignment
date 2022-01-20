@@ -2,6 +2,7 @@ package edu.wctc.dice;
 
 import edu.wctc.dice.iface.GameInput;
 import edu.wctc.dice.iface.GameOutput;
+import edu.wctc.dice.iface.IDice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +15,17 @@ import java.util.Random;
 public class DiceGame {
     private GameInput in;
     private GameOutput out;
+    private IDice iDice;
 
     private List<Player> players = new ArrayList<>();
     private int currentRound = 1;
 
 
     @Autowired
-    public DiceGame(GameInput in, GameOutput out) {
+    public DiceGame(GameInput in, GameOutput out, IDice iDice) {
         this.in = in;
         this.out = out;
+        this.iDice = iDice;
         System.out.println("DiceGame created");
     }
 
@@ -131,7 +134,7 @@ public class DiceGame {
 
     private int rollDie() {
         Random random = new Random();
-        return random.nextInt(6) + 1;
-//        return dieRoller.rollDie();
+//
+        return iDice.rollDie();
     }
 }
